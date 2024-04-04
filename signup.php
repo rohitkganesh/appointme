@@ -1,3 +1,7 @@
+<?php
+include ('backend/conn.php');
+include('backend/create.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 

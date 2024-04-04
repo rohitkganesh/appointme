@@ -24,7 +24,7 @@ session_start();
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $stmt = $conn->prepare('SELECT uid,password FROM users WHERE email = ?');
+        $stmt = $conn->prepare('SELECT * FROM users WHERE email = ?');
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -33,8 +33,8 @@ session_start();
             $row = $result->fetch_assoc();
             $hashedPass = $row['password'];
             if (password_verify($password,$hashedPass)) {
-                $_SESSION['user'] = $row['uid'];
-                header("Location:index.php");
+                $_SESSION['user'] = $row['email'];
+                header("Location:patient\patientdash.php");
                 exit();
             }
         }

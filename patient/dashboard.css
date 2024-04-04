@@ -1,0 +1,57 @@
+body{
+    box-sizing:border-box;
+    margin:0;
+
+}
+a{
+    text-decoration: none;
+}
+.section-body{
+    display:flex;
+    color:black;
+}
+.patient{
+  
+    padding: 20px 0px;
+
+}
+
+.left-body{
+    border-right: 2px solid rgb(205, 203, 203);
+
+    width: 200px;
+    height: 100vh;
+    background: whitesmoke;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+   
+}
+.right-body.home{
+    width: 200px;
+    height: 100vh;
+    width: 100%;
+    background: white;
+    padding: 20px;
+}
+
+.nav{
+    height: 30px;
+    width: 80vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between ;
+    align-items:center;
+}
+.nav-con{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+#res{
+    display: flex;
+    flex-direction: column;
+
+}
