@@ -1,6 +1,7 @@
 <?php
-include('backend/conn.php');
-include('backend/create.php');
+session_start();
+include('../backend/conn.php');
+include('../backend/create.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,14 +9,15 @@ include('backend/create.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register || Appoint Me</title>
-    <link rel="stylesheet" href="Styles/login-style.css">
+    <title>Doctor Register || Appoint Me</title>
+    <link rel="stylesheet" href="../Styles/login-style.css">
+    <link rel="stylesheet" href="../Styles/footer-style.css">
 </head>
 
 <body>
     <div class="login-container">
         <div class="input-field signup-input-field">
-            <h2>SIGN UP</h2>
+            <h2>DOCTOR SIGN UP</h2>
             <form action="" method="post">
                 <table>
                     <tr>
@@ -23,8 +25,7 @@ include('backend/create.php');
                             <p>First Name : </p>
                         </td>
                         <td class="signup-input-box">
-                            <input class="login-input signup-input" type="text" name="fname" placeholder="First Name"
-                                pattern="[A-Za-Z]+" required>
+                            <input class="login-input signup-input" type="text" name="fname" placeholder="First Name" pattern="[A-Za-Z]+" required>
                         </td>
                     </tr>
                     <tr>
@@ -32,8 +33,7 @@ include('backend/create.php');
                             <p>Last Name : </p>
                         </td>
                         <td class="signup-input-box">
-                            <input class="login-input signup-input" type="text" name="lname" placeholder="Last Name"
-                                pattern="[A-Za-Z]+" required>
+                            <input class="login-input signup-input" type="text" name="lname" placeholder="Last Name" pattern="[A-Za-Z]+" required>
                         </td>
                     </tr>
                     <tr>
@@ -41,8 +41,7 @@ include('backend/create.php');
                             <p>Email : </p>
                         </td>
                         <td class="signup-input-box">
-                            <input class="login-input signup-input" type="email" name="email" placeholder="Email"
-                                required>
+                            <input class="login-input signup-input" type="email" name="email" placeholder="Email" required>
                         </td>
                     </tr>
                     <tr>
@@ -50,8 +49,7 @@ include('backend/create.php');
                             <p>Address : </p>
                         </td>
                         <td class="signup-input-box">
-                            <input class="login-input signup-input" type="text" name="address" placeholder="Address"
-                                required>
+                            <input class="login-input signup-input" type="text" name="address" placeholder="Address" required>
                         </td>
                     </tr>
                     <tr>
@@ -59,8 +57,7 @@ include('backend/create.php');
                             <p>Mobile No. : </p>
                         </td>
                         <td class="signup-input-box">
-                            <input class="login-input signup-input" type="tel" name="mobile" placeholder="Mobile Number"
-                                required>
+                            <input class="login-input signup-input" type="tel" name="mobile" placeholder="Mobile Number" required>
                         </td>
                     </tr>
                     <tr>
@@ -68,8 +65,7 @@ include('backend/create.php');
                             <p>Password : </p>
                         </td>
                         <td class="signup-input-box">
-                            <input class="login-input signup-input" type="password" name="password"
-                                placeholder="Password" required>
+                            <input class="login-input signup-input" type="password" name="password" placeholder="Password" required>
                         </td>
                     </tr>
                     <tr>
@@ -77,8 +73,7 @@ include('backend/create.php');
                             <p>Confirm Password : </p>
                         </td>
                         <td class="signup-input-box">
-                            <input class="login-input signup-input" type="password" name="password2"
-                                placeholder="Confirm Password" required>
+                            <input class="login-input signup-input" type="password" name="password2" placeholder="Confirm Password" required>
                         </td>
                     </tr>
                     <tr>
@@ -86,8 +81,7 @@ include('backend/create.php');
                             <p>DOB : </p>
                         </td>
                         <td class="signup-input-box">
-                            <input class="login-input signup-input" type="date" name="dob"
-                                placeholder="Choose Date of Birth" required>
+                            <input class="login-input signup-input" type="date" name="dob" placeholder="Choose Date of Birth" required>
                         </td>
                     </tr>
                     <tr>
@@ -101,15 +95,28 @@ include('backend/create.php');
                             <label for="female">Female</label>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="input-labels">
+                            <p>Specialties : </p>
+                        </td>
+                        <td class="signup-input-box">
+                            <input class="login-input signup-input" type="text" name="specialties" placeholder="Specialties" required>
+                        </td>
+                    </tr>
                 </table>
-                <input id="login-btn" type="submit" name="login" value="SIGN UP">
-                <p class="or">OR</p>
-                <p class="signup-link login-link">Already have an account? <a href="login.php">Log In</a></p>
+                <div>
+                    <button id="login-btn" type="button" onclick="prev()">Go Back</button> &nbsp; &nbsp;
+                    <input id="login-btn" type="submit" name="signup" value="Add Doctor">
+                </div>
             </form>
             <?php if (!empty($msg)) { echo "<script>alert($msg);</script>"; } ?>
         </div>
     </div>
-    <?php require_once("components/footer.php") ?>
+    <?php require_once("../components/footer.php") ?>
 </body>
-
 </html>
+<script>
+    function prev() {
+        window.location.href = '../Admin/admindash.php';
+    }
+</script>

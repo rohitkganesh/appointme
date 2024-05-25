@@ -1,8 +1,6 @@
 body {
-    background-color: rgb(145, 198, 244);
     margin: 0;
 }
-
 .header {
     position: fixed;
     top: 0;
@@ -40,10 +38,10 @@ body {
 }
 
 .logout-btn {
+    margin:8px 0px;
     cursor: pointer;
     background-color: rgb(66, 81, 255);
     padding: 6px 11px;
-    margin-right: 30px;
     border: none;
     border-radius: 3px;
     font-size: 14px;

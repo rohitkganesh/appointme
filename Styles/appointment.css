@@ -1,0 +1,31 @@
+.appointments,.new-appointment{
+    margin:0;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    /* justify-content:space-around; */
+    flex-wrap: wrap;
+}
+.appointment,.choose-doctor{
+    margin: 0 10px;
+    border-top:1px solid gray;
+    border-bottom:1px solid gray;
+    margin-bottom:20px;
+    padding:20px 10px;
+    height:240px;
+    width:200px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center;
+    justify-content: center; */
+}
+.choose-doctor img{
+    padding-bottom: 10px;
+    border-radius: 40px;
+    height: 160px;
+    width: 160px;
+    margin: auto;
+    display: block;
+}
+
+

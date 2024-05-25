@@ -11,46 +11,55 @@ session_start();
     <title>Log In || Appoint Me</title>
     <link rel="stylesheet" href="Styles/login-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
-    <!-- <script src="https://kit.fontawesome.com/6645d5fb73.js" crossorigin="anonymous"></script> -->
 </head>
 
 <body>
     <?php
-    include ('backend/login-form-validate.php');
-    include ('backend/conn.php');
+    include('backend/login-form-validate.php');  // Include validation script if needed
+    include('backend/conn.php');  // Include the database connection script
+
+    // Initialize error messages
+    $email_error = $password_error = '';
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $stmt = $conn->prepare('SELECT * FROM users WHERE email = ?');
-        $stmt->bind_param('s', $email);
+        // Prepare the SQL statement with placeholders
+        $stmt = $conn->prepare("SELECT 'doctor' AS usertype, dname AS name, demail AS email, dpassword AS password FROM doctor WHERE demail = ?
+            UNION
+            SELECT 'patient' AS usertype, pname AS name, pemail AS email, ppassword AS password FROM patient WHERE pemail = ?
+            UNION
+            SELECT 'admin' AS usertype, name, email, password FROM admin WHERE email = ?");
+            
+        $stmt->bind_param('sss', $email, $email, $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $hashedPass = $row['password'];
+            
+            // Check password based on user type
             if (password_verify($password,$hashedPass)) {
-                $_SESSION['user'] = $row['email'];
-                header("Location:patient\patientdash.php");
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['name'] = $row['name'];
+                $_SESSION['usertype']=$row['usertype'];
+
+                if ($row['usertype'] == 'patient') {
+                    header("Location: patient/patientdash.php");
+                } elseif ($row['usertype'] == 'doctor') {
+                    header("Location: doctor/doctordash.php");
+                } elseif ($row['usertype'] == 'admin') {
+                    header("Location: admin/admindash.php");
+                }
                 exit();
+            } else {
+                $password_error = "Incorrect password.";
             }
+        } else {
+            $email_error = "Email not found.";
         }
-
-        // $result = $conn->query("SELECT * FROM users");
-        // while($result->num_rows >0){  
-        //     $row = $result->fetch_assoc();          
-        //     if ($username == $row['email'] && $password == $row['password'] ) {
-        //         $_SESSION['user'] = 'rohit';
-        //         header("Location:index.php");
-        //         exit();
-        //     }
-    
-        // }
-    
-
     }
     ?>
     <div class="login-container">
@@ -59,31 +68,22 @@ session_start();
             <form action="#" method="post">
                 <div class="login-input-container">
                     <i class="fas fa-user"></i>
-                    <input type="text" class="login-input" name="email" placeholder="Email Address" value="<?php if (isset($email))
-                        echo $email ?>">
-                        <p class="error">
-                        <?php if (isset($email_error))
-                        echo $email_error ?>
-                        </p>
-                    </div>
-                    <div class="login-input-container">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" class="login-input" name="password" placeholder="Password" value="<?php if (isset($password))
-                        echo $password ?>">
-                        <p class="error">
-                        <?php if (isset($password_error))
-                        echo $password_error ?>
-                        </p>
-                    </div>
-                    <input id="login-btn" type="submit" name="login" value="LOG IN">
-                    <p class="or">OR</p>
-                    <p class="signup-link login-link">Don't have an account? <a href="signup.php">Sign Up</a></p>
-                    <p class="signup-link login-link"><a href="forgot-password.php">Forgot Password</a></p>
-
-                </form>
-            </div>
+                    <input type="text" class="login-input" autocomplete="off" name="email" placeholder="Email Address" value="<?php if (isset($email)) echo htmlspecialchars($email); ?>" required>
+                    <p class="error"><?php echo $email_error; ?></p>
+                </div>
+                <div class="login-input-container">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" class="login-input"autocomplete="new-password" name="password" placeholder="Password" value="<?php if (isset($password)) echo htmlspecialchars($password); ?>" required>
+                    <p class="error"><?php echo $password_error; ?></p>
+                </div>
+                <input id="login-btn" type="submit" name="login" value="LOG IN">
+                <p class="or">OR</p>
+                <p class="signup-link login-link">Don't have an account? <a href="signup.php">Sign Up</a></p>
+                <p class="signup-link login-link"><a href="forgot-password.php">Forgot Password</a></p>
+            </form>
         </div>
-    <?php require_once ("components/footer.php") ?>
+    </div>
+    <?php require_once("components/footer.php"); ?>
 </body>
 
 </html>

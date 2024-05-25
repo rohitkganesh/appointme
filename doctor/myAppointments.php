@@ -22,11 +22,10 @@ include("../backend/conn.php")
                 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        $avatar=$row['Avatar'];
-                        echo "<div class='choose-doctor'>";
-                        echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar">';
+                        echo "<div class='choose-doctor'";
+                        echo "<img src='../images/doc1.jpg' alt=''>";
                         echo "<span>Name:{$row['dname']}</span>";
-                        echo "<span>Speciality:{$row ['specialties']}</span>";
+                        echo " <span>Speciality:{$row ['specialties']}</span>";
                         echo "<button class='logout-btn'><a href='#'>Book now</a></button> ";
                         echo "</div>";
                     }
@@ -38,11 +37,9 @@ include("../backend/conn.php")
        </div>
     <h3 >Your upcoming appointments:</h3>
     <div class="appointments">
-        
         <div class="appointment">Appointment1</div>
         <div class="appointment">Appointment2</div>
         <div class="appointment">Appointment3</div>
-        <div class="appointment">Appointment4</div>
         <div class="appointment">Appointment4</div>
         
     </div>

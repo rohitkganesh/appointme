@@ -1,6 +1,8 @@
 body{
     box-sizing:border-box;
     margin:0;
+    padding: 0;
+    overflow-x: hidden;
 
 }
 a{
@@ -17,40 +19,43 @@ a{
 }
 
 .left-body{
+    position: fixed;
     border-right: 2px solid rgb(205, 203, 203);
-
     width: 200px;
     height: 100vh;
     background: whitesmoke;
     padding: 20px;
     display: flex;
+    box-sizing:border-box;
     flex-direction: column;
    
 }
 .right-body.home{
-    width: 200px;
+    margin-left: 200px;
     height: 100vh;
     width: 100%;
     background: white;
-    padding: 20px;
+ 
 }
 
-.nav{
-    height: 30px;
-    width: 80vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between ;
-    align-items:center;
-}
 .nav-con{
+ 
+    background:blue;
+    height: 50px;
     display: flex;
+    width: 100%;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+
 }
+.nav-con.h3{
+    color: white;
+    padding: 0px 20px;
 
 
+}
 #res{
+    padding:0px 20px;
     display: flex;
     flex-direction: column;
 
