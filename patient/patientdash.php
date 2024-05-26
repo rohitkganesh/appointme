@@ -6,6 +6,11 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
     $name = $_SESSION['name'];
     $role=$_SESSION['usertype'];
 
+    if(isset($_SESSION['msg'])) {
+        echo "<script>alert('{$_SESSION['msg']}');</script>";
+        unset($_SESSION['msg']); // Clear the message after displaying it
+    }
+
     // Check if the login message has been shown
     if(!isset($_SESSION['login_message_shown'])) {
         $message = "Login successful. Welcome  $role , $name  ( $email )";
@@ -97,7 +102,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
             xhttp.send();
     }
     function reports() {
-        loadContent("reports.php");
+        loadContent("../medical_reports/medical.php");
     }
     function appointments(){
         loadContent("myAppointments.php");
@@ -105,6 +110,13 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
     function addAvatar(){
         loadContent("../components/avatar-upload.php")
     }
+    function viewImage(mid) {
+            console.log("View Image clicked for MID:", mid);
+            window.open('../medical_reports/view.php?mid=' + mid, 'Image', 'width=600,height=400');
+        }
+    function medicalUpload() {
+            window.open('../medical_reports/medical_upload.php' , '_blank', 'width=800,height=1000');
+        }
     
 
 </script>
