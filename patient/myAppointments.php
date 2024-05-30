@@ -24,7 +24,13 @@ include("../backend/conn.php")
                     while ($row = $result->fetch_assoc()) {
                         $avatar=$row['Avatar'];
                         echo "<div class='choose-doctor'>";
-                        echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar">';
+                        if($avatar){
+                            echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar">';
+                        }
+                        else{
+                            echo '<img src="../images/default-avatar.png" alt="Avatar" ';
+                        }
+
                         echo "<span>Name:{$row['dname']}</span>";
                         echo "<span>Speciality:{$row ['specialties']}</span>";
                         echo "<button class='logout-btn'><a href='#'>Book now</a></button> ";

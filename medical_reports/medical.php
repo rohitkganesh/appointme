@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +44,13 @@
     <div class="doctors">
         <?php
             include("../backend/conn.php");
-            $stmt = $conn->prepare("SELECT * FROM `medical_reports` ORDER BY updated_at DESC;");
+            $email=$_SESSION['email'];
+            $query = "SELECT * FROM `medical_reports` 
+                      WHERE pid = (SELECT pid FROM patient WHERE pemail =?) 
+                      ORDER BY updated_at DESC;";
+                      
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('s', $email);
             $stmt->execute();
             $result = $stmt->get_result();
             
