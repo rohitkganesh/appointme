@@ -1,0 +1,228 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.signup-input-field {
+    position: fixed;
+    top: 20px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: max-content;
+    background-color: rgba(31, 158, 213, 0.705);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 3px rgb(251, 250, 250), 0 0 15px rgb(8, 91, 234);
+    /* margin-top: 10px; */
+}
+
+/* container  */
+.signup-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: Helvetica;
+    font-weight: bold;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-image: url('../images/home-bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+/* .error-container {
+    display: none;
+    flex-direction: column;
+    width: max-content;
+    height: 200px;
+    width: 200px;
+    background-color: grey;
+    position: fixed;
+    top: 20px;
+    left: 70%; 
+} */
+
+/* signup big text  */
+h3#signup {
+    width: 140px;
+    text-align: center;
+    padding: 6px 4px;
+    text-shadow: 0 0 4px white, 0 0 8px blue;
+    border-top: 3px double rgb(123, 123, 123);
+    border-bottom: 3px double rgb(123, 123, 123);
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* form css  */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* labels of input fields and input fields section */
+td p {
+    margin: 0;
+}
+
+
+/* input boxes/fields */
+input.signup-input {
+    border: none;
+    background-color: rgb(200, 239, 226);
+    border-radius: 4px;
+    height: 26px;
+    width: 200px;
+    margin-left: 4px;
+    padding: 2px 10px;
+    transition-duration: 0.3s;
+
+}
+
+input.signup-input:focus {
+    outline: none;
+    box-shadow: 0 0 6px rgb(60, 33, 236);
+    transition: box-shadow ease 0.1s;
+    background-color: rgb(228, 214, 196);
+}
+
+
+/* label {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    width: 80px;
+    cursor: default;
+} */
+
+td.input-labels {
+    height: 30px;
+    width: 25px;
+}
+
+.error-box {
+    /* display: inline-block; */
+    height: 18px;
+    width: fit-content;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 13px;
+}
+
+/* .signup-input-box label {
+
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.689);
+    color: white;
+    padding: 2px 8px 4px 4px;
+    border-radius: 8px;
+    margin-left: 5px;
+} */
+
+/* error message display */
+.error {
+    display: inline-block;
+    /* height: 14px;  */
+    width: 240px;
+    color: rgba(181, 8, 8, 1);
+    font-size: 13px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    margin-left: 28px;
+    margin-top: -4px;
+}
+
+/* --LOGIN button */
+#signup-btn {
+    cursor: pointer;
+    width: 120px;
+    padding: 9px 22px;
+    color: rgb(222, 222, 222);
+    background-color: rgb(24, 72, 203);
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    margin-top: 6px;
+    margin-bottom: 5px;
+    box-shadow: 1px 1px 3px black;
+}
+
+#signup-btn:hover {
+    box-shadow: 2px 1px 4px black;
+    background-color: rgb(39, 35, 255);
+    transition-duration: 0.1s;
+    color: white;
+}
+
+#signup-btn:active {
+    color: rgb(222, 222, 222);
+    background-color: rgb(20, 16, 216);
+}
+
+/* OR line  */
+.or {
+    margin: 4px 0;
+    text-align: center;
+}
+
+.or:before {
+    position: absolute;
+    content: "";
+    background-color: rgba(77, 77, 77, 0.777);
+    height: 2px;
+    width: 40%;
+    left: 10px;
+    margin-top: 9px;
+}
+
+.or:after {
+    position: absolute;
+    content: "";
+    background-color: rgba(77, 77, 77, 0.777);
+    height: 2px;
+    width: 40%;
+    right: 10px;
+    margin-top: 9px;
+}
+
+.signup-link {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* --radio buttton stylin  */
+.radio-button {
+    background-color: rgb(200, 239, 226);
+    color: #000;
+    padding: 5px 20px;
+    font-size: 15px;
+    border: 2px solid #0c85bc;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    margin: 5px;
+    margin-top: 0;
+    transition: background-color 0.3s ease;
+}
+
+.radio-button:hover {
+    background-color: rgb(132, 221, 233);
+}
+
+input[type="radio"]:checked+.radio-button {
+    background-color: #005c95;
+    color: white;
+    border-color: #00217a;
+}

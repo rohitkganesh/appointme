@@ -1,21 +1,16 @@
 <?php
-include('conn.php');
+include ('conn.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $name = $fname . " " . $lname;
-    $email = $_POST['email'];
-    $address = $_POST['address'];
-    $mobile = $_POST['mobile'];
-    $password = $_POST['password'];
-    $password2 = $_POST['password2'];
-    $dob = $_POST['dob'];
-    $gender = $_POST['gender'];
-    $specialties = isset($_POST['specialties']) ? $_POST['specialties'] : ''; // Specialties for doctors
-    $msg = '';
-
-    if ($password === $password2) {
+    if (
+        empty($age_error) &&
+        empty($name_error) &&
+        empty($email_error) &&
+        empty($mobile_error) &&
+        empty($password_error) &&
+        empty($password1_error) &&
+        empty($gender_error)
+    ) {
         $stmt = $conn->prepare("
             SELECT demail AS email FROM doctor WHERE demail = ?
             UNION
@@ -30,38 +25,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result->num_rows > 0) {
             $msg = "Email already used. Cannot use twice.";
         } else {
+            //password hashing
             $hash = password_hash($password, PASSWORD_DEFAULT);
             if (!empty($specialties)) { // If specialties is provided, it's a doctor
                 $role = 'doctor';
-                $stmt = $conn->prepare('INSERT INTO doctor(dname, demail, daddress, dmobile, dpassword, ddob, dgender, specialties) VALUES(?, ?, ?, ?, ?, ?, ?, ?)');
-                $stmt->bind_param('ssssssss', $name, $email, $address, $mobile, $hash, $dob, $gender, $specialties);
+                $stmt = $conn->prepare('INSERT INTO doctor(dname, demail, dmobile, dpassword, ddob, dgender, specialties) VALUES(?, ?, ?, ?, ?, ?, ?)');
+                $stmt->bind_param('sssssss', $name, $email, $mobile, $hash, $age, $gender, $specialties);
             } else { // Else, it's a patient
                 $role = 'patient';
-                $stmt = $conn->prepare('INSERT INTO patient(pname, pemail, paddress, pmobile, ppassword, pdob, pgender) VALUES(?, ?, ?, ?, ?, ?, ?)');
-                $stmt->bind_param('sssssss', $name, $email, $address, $mobile, $hash, $dob, $gender);
+                $stmt = $conn->prepare('INSERT INTO patient(pname, pemail, pmobile, ppassword, pdob, pgender) VALUES(?, ?, ?, ?, ?, ?)');
+                $stmt->bind_param('ssssss', $name, $email, $mobile, $hash, $age, $gender);
             }
 
             if ($stmt->execute()) {
-                $msg = 'User Created Successfully';
-                echo "<script>
-                        alert('$msg');
-                        window.location.href = '" . ($role == 'patient' ? "login.php" : "../Admin/admindash.php") . "';
-                      </script>";
+                $msg = '<span style="color:green">Account created Successfully.<br>Log In to continue . . .</span>';
+                ($role == 'patient') ? header('Refresh:2, url=login.php') : header('Refresh:2, url=../Admin/admindash.php');
                 exit(); // Ensure the script stops after the redirect
             } else {
                 $msg = 'User could not be created. ' . htmlspecialchars($stmt->error);
             }
         }
         $stmt->close();
-    } else {
-        $msg = "Password Confirmation Error! Reconfirm Password";
     }
 }
-?>
-
-<!-- Include the message variable to be used in signup.php -->
-<?php 
-if (!empty($msg)) {
-    echo "<script>alert('$msg');</script>";
-} 
-?>
