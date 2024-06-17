@@ -30,20 +30,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mobile_error = 'Mobile number is required.';
     } else {
         $mobile = validate($_POST['mobile']);
-        if (!preg_match("/^9\d{9}$/", $mobile)) {
+        if (!preg_match("/^(98|97)\d{8}$/", $mobile)) {
             $mobile_error = 'Invalid mobile number.';
         }
     }
 
     //age validation
-    if (empty($_POST['age']) && validate($_POST['age']) == 0) {
-        $age_error = 'Age is required.';
+
+    if (empty($_POST['age'])) {
+        $age_error = 'Date of birth is required';
     } else {
-        $age = validate($_POST['age']);
-        if ($age < 0) {
-            $age_error = 'Age cannot be negative.';
-        } else if ($age > 130) {
-            $age_error = 'Invalid age.';
+        $age = $_POST['age'];
+        $dobDate = new DateTime($age);
+        $currentDate = new DateTime();
+        $maxDate = (clone $currentDate)->modify('-130 years');
+
+        if ($dobDate > $currentDate) {
+            $age_error = 'Date of birth cannot be in the future.';
+        } elseif ($dobDate < $maxDate) {
+            $age_error = 'Date of birth cannot exceed 130 years.';
+        } else {
+            $age_error = '';
         }
     }
 

@@ -88,7 +88,7 @@ include ('backend/create.php');
                                 <i class="fa-regular fa-calendar-days"></i>
                             </td>
                             <td class="signup-input-box">
-                                <input class="signup-input" type="number" name="age" placeholder="Age in years" value="<?php if (isset($age))
+                                <input class="signup-input" type="date" name="age" placeholder="Age in years" value="<?php if (isset($age))
                                 echo $age ?>">
                             </td>
                         </tr>
@@ -161,8 +161,8 @@ include ('backend/create.php');
                     <!-- signup button -->
                     <input id="signup-btn" type="submit" name="login" value="SIGN UP">
                     <p class="error">
-                    <?php if (isset($signup_error))
-                                    echo $signup_error ?>
+                    <?php if (isset($msg))
+                                    echo $msg ?>
                     </p>
                     <p class="or">OR</p>
                     <p class="signup-link login-link">Already have an account? <a href="login.php">Log In</a></p>

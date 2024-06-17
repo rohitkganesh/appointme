@@ -44,7 +44,7 @@ color: white;
                 $result = $stmt->get_result();
                 
                 if ($result->num_rows > 0) {
-                    echo "<h3>Doctor</h3>";
+                    echo "<h3>Manage Doctor</h3>";
                     echo "<table>";
                     echo "<tr><th>Id</th><th>Name</th><th>Email</th><th>Phone</th><th>Specialties</th><th>Action</th></tr>";
                     while ($row = $result->fetch_assoc()) {
@@ -56,7 +56,7 @@ color: white;
                         <td>{$row['specialties']}</td>
                         <td>
                             <a href='updateDoc.php?id={$row['did']}' class='logout-btn'>Update</a>
-                            <a href='deleteDoc.php?id={$row['did']}' class='logout-btn delete' onclick='return confirm(\"Are you sure you want to delete this doctor?\")'>Delete</a>
+                            <a href='deleteDoctor.php?id={$row['did']}' class='logout-btn delete' onclick='return confirm(\"Are you sure you want to delete this doctor?\")'>Delete</a>
                         </td>
                         </tr>";
                     }
