@@ -5,19 +5,24 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
     $email = $_SESSION['email'];
     $name = $_SESSION['name'];
     $role=$_SESSION['usertype'];
-
+    // Check if the 'newStatus' cookie is set
+    
     if(isset($_SESSION['msg'])) {
         echo "<script>alert('{$_SESSION['msg']}');</script>";
         unset($_SESSION['msg']); // Clear the message after displaying it
     }
-
-    // Check if the login message has been shown
     if(!isset($_SESSION['login_message_shown'])) {
         $message = "Login successful. Welcome  $role , $name  ( $email )";
         echo "<script>alert('$message');</script>";
         // Set session variable to indicate message has been shown
         $_SESSION['login_message_shown'] = true;
-}} else {
+    }
+    if(isset($_COOKIE['newStatus'])) {
+        $newStatus = $_COOKIE['newStatus'];
+      echo "<script>alert('Your appointment has been $newStatus')</script>";
+      setcookie('newStatus', '', time()-24*3600, '/');
+    } 
+} else {
     header("Location: ../login.php");
     exit();
 }
@@ -62,7 +67,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
             <button class="logout-btn"><a href="../logout.php">Log out</a></button>
         </div>
         <div>
-            <p><a href="#">Home</a></p>
+            <p><a href="#"onclick="home()">Home</a></p>
             <p><a href="#"onclick="reports()">Reports</p>
             <p><a href="#" onclick="appointments()">Appointments</a></p>
             <p><a href="#">Settings</a></p>
@@ -80,7 +85,9 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
             </div>
         
         <div id="res">
-            
+        <?php
+            include("../components/home.php");
+            ?>
 
         </div>
     </div>
@@ -103,6 +110,9 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
     }
     function reports() {
         loadContent("../medical_reports/medical.php");
+    }
+    function home() {
+        loadContent("../components/home.php");
     }
     function appointments(){
         loadContent("myAppointments.php");

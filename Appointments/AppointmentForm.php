@@ -51,7 +51,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
     header("Location: ../login.php");
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -61,11 +60,59 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Form</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .report-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .logout-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .logout-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div class="report-container">
         <h2>Book your appointment</h2>
-        <form action="../Appointments/newAppointment.php" method="post">
+        <form action="../Appointments/newAppointment.php" method="post" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="patient_name">Patient Name:</label>
                 <input type="text" id="patient_name" name="patient_name" value="<?php echo htmlspecialchars($patient['pname']); ?>" required readonly>
@@ -98,55 +145,32 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
         function prev() {
             window.close();
         }
+
+        function validateForm() {
+            var appointmentDateInput = document.getElementById('appointment_date');
+            var appointmentTimeInput = document.getElementById('appointment_time');
+
+            // Validate appointment date
+            var currentDate = new Date();
+            var selectedDate = new Date(appointmentDateInput.value);
+            var maxDate = new Date();
+            maxDate.setDate(maxDate.getDate() + 3); // Allow appointments up to 3 days from now
+
+            if (selectedDate < currentDate || selectedDate > maxDate) {
+                alert('Please select an appointment date within 3 days from today.');
+                return false;
+            }
+
+            // Validate appointment time
+            var time = appointmentTimeInput.value;
+            var hours = parseInt(time.split(':')[0], 10);
+            if (hours < 8 || hours > 17) {
+                alert('Appointment time must be between 8:00 AM and 5:00 PM (08:00 - 17:00).');
+                return false;
+            }
+
+            return true;
+        }
     </script>
 </body>
 </html>
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f7f7f7;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
-    .report-container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 300px;
-    }
-    h2 {
-        margin-bottom: 20px;
-        font-size: 24px;
-        text-align: center;
-    }
-    .form-group {
-        margin-bottom: 15px;
-    }
-    label {
-        display: block;
-        margin-bottom: 5px;
-    }
-    input, textarea {
-        width: 100%;
-        padding: 8px;
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-    .logout-btn {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-    .logout-btn:hover {
-        background-color: #0056b3;
-    }
-</style>

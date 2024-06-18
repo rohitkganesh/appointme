@@ -4,6 +4,6 @@ $med_id = $_GET['id'];
 $sql = $conn -> prepare('DELETE FROM medical_reports WHERE mid=?');
 $sql->bind_param('i',$med_id);
 if($sql->execute()){
-    echo "<script>alert('Doctor deleted succesfully.')</script>";
+    echo "<script>alert('report deleted succesfully.')</script>";
     header("Location:../patient/patientdash.php");
 }

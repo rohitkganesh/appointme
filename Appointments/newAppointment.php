@@ -12,7 +12,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
 
         // Insert the new appointment into the database
         $query = "INSERT INTO appointments (pid, did, AppointmentDate, AppointmentTime, ReasonForVisit, Status) VALUES (?, ?, ?, ?, ?, ?)";
-        $status = 'Scheduled'; // Default status
+        $status = 'Pending'; // Default status
 
         if ($stmt = $conn->prepare($query)) {
             $stmt->bind_param('iissss', $pid, $did, $appointment_date, $appointment_time, $reason_for_visit, $status);

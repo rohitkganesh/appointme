@@ -8,8 +8,27 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['name'])) {
     exit();
 }
 
+
 // Get the patient ID from the session
 $pid = $_SESSION['id'];
+
+// Function to delete expired appointments
+function deleteExpiredAppointments($conn, $currentDateTime)
+{
+    $stmt = $conn->prepare("
+        DELETE FROM appointments 
+        WHERE AppointmentDate < ? 
+        OR (AppointmentDate = ? AND AppointmentTime < ?)
+    ");
+    $stmt->bind_param('sss', $currentDate, $currentDate, $currentTime);
+    $currentDate = date('Y-m-d');
+    $currentTime = date('H:i:s');
+    $stmt->execute();
+    $stmt->close();
+}
+
+// Delete appointments that have passed
+deleteExpiredAppointments($conn, date('Y-m-d H:i:s'));
 ?>
 
 <!DOCTYPE html>
@@ -52,33 +71,43 @@ $pid = $_SESSION['id'];
     <h3>Your upcoming appointments:</h3>
     <div class="appointments">
     <?php
-        $stmt = $conn->prepare("
-            SELECT a.*, d.dname, d.specialties 
-            FROM appointments a 
-            JOIN doctor d ON a.did = d.did 
-            WHERE a.pid = ? AND a.Status = 'Scheduled'
-        ");
-        $stmt->bind_param('i', $pid);
-        $stmt->execute();
-        $result = $stmt->get_result();
+$currentDateTime = date('Y-m-d H:i:s');
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo "<div class='appointment'>";
-                echo "<div class='appointment-datetime'>";
-                echo "<span>{$row['AppointmentDate']}</span>";
-                echo "<span>{$row['AppointmentTime']}</span>";
-                echo "</div>";
-                echo "<div>Doctor Name: {$row['dname']}</div>";
-                echo "<div>Speciality: {$row['specialties']}</div>";
-                echo "<button class='logout-btn'><a href='DeleteAppointment.php?aid={$row['AppointmentID']}'>Delete</a></button>";
-                echo "</div>";
+$stmt = $conn->prepare("
+    SELECT a.*, d.dname, d.specialties 
+    FROM appointments a 
+    JOIN doctor d ON a.did = d.did 
+    WHERE a.pid = ? 
+    ORDER BY a.AppointmentDate ASC, a.AppointmentTime ASC
+");
+$stmt->bind_param('i', $pid);
+$stmt->execute();
+$result = $stmt->get_result();
 
-            }
-        } else {
-            echo "<p>No appointments scheduled.</p>";
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $appointmentDateTime = $row['AppointmentDate'] . ' ' . $row['AppointmentTime'];
+        
+        echo "<div class='appointment'>";
+        echo "<div class='appointment-datetime'>";
+        echo "<span>{$row['AppointmentDate']}</span>";
+        echo "<span>{$row['AppointmentTime']}</span>";
+        echo "</div>";
+        echo "<div>Doctor Name: {$row['dname']}</div>";
+        echo "<div>Specialty: {$row['specialties']}</div>";
+        echo "<div>Status: {$row['Status']}</div>";
+
+        // Show cancel button only if status is 'Pending' or 'Scheduled'
+        if ($row['Status'] === 'Pending' || $row['Status'] === 'Scheduled') {
+            echo "<button class='logout-btn'><a href='../Appointments/CancelAppointment.php?aid={$row['AppointmentID']}' onclick='return confirm(\"Are you sure you want to cancel this appointment?\")'>Cancel</a></button>";
         }
-        ?>
+
+        echo "</div>";
+    }
+} else {
+    echo "<p>No appointments scheduled.</p>";
+}
+?>
     </div>
 </div>
 </body>
