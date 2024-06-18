@@ -7,3 +7,4 @@ if($sql->execute()){
     echo "<script>alert('Doctor deleted succesfully.')</script>";
     header("Location:admindash.php");
 }
+?>
