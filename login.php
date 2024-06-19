@@ -34,11 +34,11 @@ session_start();
         $password = $_POST['password'];
 
         // Prepare the SQL statement with placeholders
-        $stmt = $conn->prepare("SELECT 'doctor' AS usertype, dname AS name, demail AS email, dpassword AS password FROM doctor WHERE demail = ?
+        $stmt = $conn->prepare("SELECT 'doctor' AS usertype,did AS id, dname AS name, demail AS email, dpassword AS password FROM doctor WHERE demail = ?
             UNION
-            SELECT 'patient' AS usertype, pname AS name, pemail AS email, ppassword AS password FROM patient WHERE pemail = ?
+            SELECT 'patient' AS usertype,pid AS id pname AS name, pemail AS email, ppassword AS password FROM patient WHERE pemail = ?
             UNION
-            SELECT 'admin' AS usertype, name, email, password FROM admin WHERE email = ?");
+            SELECT 'admin' AS usertype,aid AS id name, email, password FROM admin WHERE email = ?");
 
         $stmt->bind_param('sss', $email, $email, $email);
         $stmt->execute();
@@ -52,6 +52,7 @@ session_start();
             if (password_verify($password, $hashedPass)) {
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['name'] = $row['name'];
+                $_SESSION['uid'] = $row['id'];
                 $_SESSION['usertype'] = $row['usertype'];
 
                 if ($row['usertype'] == 'patient') {
@@ -91,7 +92,7 @@ session_start();
                     <input id="login-btn" type="submit" name="login" value="LOG IN">
                     <p class="or">OR</p>
                     <p class="signup-link login-link">Don't have an account? <a href="signup.php">Sign Up</a></p>
-                    <p class="signup-link login-link"><a href="forgot-password.php">Forgot Password</a></p>
+                    <p class="signup-link login-link"><a href="passwordReset/forgot-password.php">Forgot Password</a></p>
                 </form>
             </div>
             <div class="intro">

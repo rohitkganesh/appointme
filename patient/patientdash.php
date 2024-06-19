@@ -4,6 +4,7 @@ include("../backend/conn.php");
 if(isset($_SESSION['email']) && isset($_SESSION['name'])){
     $email = $_SESSION['email'];
     $name = $_SESSION['name'];
+    $pid = $_SESSION['uid'];
     $role=$_SESSION['usertype'];
 
     if(isset($_SESSION['msg'])) {

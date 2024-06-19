@@ -30,10 +30,10 @@ include("../backend/conn.php")
                         else{
                             echo '<img src="../images/default-avatar.png" alt="Avatar" ';
                         }
-
+                        $did = $row['did'];
                         echo "<span>Name:{$row['dname']}</span>";
                         echo "<span>Speciality:{$row ['specialties']}</span>";
-                        echo "<button class='logout-btn'><a href='#'>Book now</a></button> ";
+                        echo "<button class='logout-btn'><a href='book-appointment.php?did=$did&pemail=$pid'>Book now</a></button> ";
                         echo "</div>";
                     }
                 
