@@ -148,7 +148,7 @@ include ('../backend/create.php');
                         </td>
                         <td class="signup-input-box">
                             <input class="signup-input" type="text" name="specialties" value="<?php if (isset($specialties))
-                                echo $specialties ?>" placeholder="Specialties" >
+                                echo $specialties ?>" placeholder="Specialties" required>
                             </td>
                         </tr>
                         <tr>

@@ -41,37 +41,34 @@ deleteExpiredAppointments($conn, date('Y-m-d H:i:s'));
 </head>
 <body>
 <div>
-    
-    <h3 >Book a appointment:</h3>
-    <div class= "new-appointment">
-    <?php
-                $stmt = $conn->prepare("SELECT * FROM doctor");
-                $stmt->execute();
-                $result = $stmt->get_result();
-                
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $avatar=$row['Avatar'];
-                        echo "<div class='choose-doctor'>";
-                        if($avatar){
-                            echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar">';
-                        }
-                        else{
-                            echo '<img src="../images/default-avatar.png" alt="Avatar" ';
-                        }
+    <h3>Book an appointment:</h3>
+    <div class="new-appointment">
+        <?php
+        $stmt = $conn->prepare("SELECT * FROM doctor");
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-                        echo "<span>Name:{$row['dname']}</span>";
-                        echo "<span>Speciality:{$row ['specialties']}</span>";
-                        echo "<button class='logout-btn'><a href='#'>Book now</a></button> ";
-                        echo "</div>";
-                    }
-                
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $avatar = $row['Avatar'];
+                echo "<div class='choose-doctor'>";
+                if ($avatar) {
+                    echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar">';
                 } else {
-                    echo "<p>No doctors found.</p>";
+                    echo '<img src="../images/default-avatar.png" alt="Avatar">';
                 }
-                ?>
-       </div>
-    <h3 >Your upcoming appointments:</h3>
+                echo "<span>Name: {$row['dname']}</span>";
+                echo "<span>Speciality: {$row['specialties']}</span>";
+                echo "<button class='logout-btn'><a href='../Appointments/AppointmentForm.php?did={$row['did']}' target='_blank'>Book now</a></button>";
+                echo "</div>";
+            }
+        } else {
+            echo "<p>No doctors found.</p>";
+        }
+        ?>
+    </div>
+
+    <h3>Your upcoming appointments:</h3>
     <div class="appointments">
     <?php
 $currentDateTime = date('Y-m-d H:i:s');
