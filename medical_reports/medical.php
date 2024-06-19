@@ -64,8 +64,8 @@ session_start();
                     <td>{$row['comments']}</td>
                     <td>{$row['updated_at']}</td>
                     <td>
-                        <a href='updateMed.php?id={$row['mid']}' class='logout-btn'>Update</a>
-                        <a href='deleteMed.php?id={$row['mid']}' class='logout-btn delete' onclick='return confirm(\"Are you sure you want to delete this doctor?\")'>Delete</a>
+                        <a href='../medical_reports/updateMed.php?id={$row['mid']}' class='logout-btn'>Update</a>
+                        <a href='../medical_reports/deleteMed.php?id={$row['mid']}' class='logout-btn delete' onclick='return confirm(\"Are you sure you want to delete this medical report?\")'>Delete</a>
                     </td>
                     </tr>";
                 }

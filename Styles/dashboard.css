@@ -30,17 +30,23 @@ a{
     flex-direction: column;
    
 }
-.right-body.home{
+.right-body.home {
     margin-left: 200px;
     height: 100vh;
-    width: 100%;
-    background: white;
- 
+    width: calc(100% - 200px);
+    position: relative; 
+    overflow-x: hidden; 
+    background-image: url('../images/home-bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* background-attachment: fixed; */
 }
+
 
 .nav-con{
  
-    background:blue;
+    background:rgb(20, 16, 216);
     height: 50px;
     display: flex;
     width: 100%;

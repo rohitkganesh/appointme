@@ -36,9 +36,9 @@ session_start();
         // Prepare the SQL statement with placeholders
         $stmt = $conn->prepare("SELECT 'doctor' AS usertype,did AS id, dname AS name, demail AS email, dpassword AS password FROM doctor WHERE demail = ?
             UNION
-            SELECT 'patient' AS usertype,pid AS id pname AS name, pemail AS email, ppassword AS password FROM patient WHERE pemail = ?
+            SELECT 'patient' AS usertype, pname AS name, pemail AS email, ppassword AS password FROM patient WHERE pemail = ?
             UNION
-            SELECT 'admin' AS usertype,aid AS id name, email, password FROM admin WHERE email = ?");
+            SELECT 'admin' AS usertype, name, email, password FROM admin WHERE email = ?");
 
         $stmt->bind_param('sss', $email, $email, $email);
         $stmt->execute();
@@ -50,6 +50,7 @@ session_start();
 
             // Check password based on user type
             if (password_verify($password, $hashedPass)) {
+                $_SESSION['id']=$row['id'];
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['name'] = $row['name'];
                 $_SESSION['uid'] = $row['id'];

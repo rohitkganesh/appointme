@@ -63,8 +63,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
             <button class="logout-btn"><a href="../logout.php">Log out</a></button>
         </div>
         <div>
-            <p><a href="#">Home</a></p>
-            <p><a href="#" onclick="reports()">Reports</a></p>
+            <p><a href="#" onclick="home()">Home</a></p>
             <p><a href="#" onclick="appointments()">Appointments</a></p>
             <p><a href="#">Settings</a></p>
         </div>
@@ -78,7 +77,11 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
                     <h3 class="nav-con h3" id="date" >date</h3>
                 </div>
             </div>
-        <div id="res"></div>
+        <div id="res">
+            <?php
+            include("../components/home.php");
+            ?>
+        </div>
     </div>
   </section>
   <script>
@@ -101,10 +104,9 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
         xhttp.send();
     }
 
-    function reports() {
-        loadContent("reports.php");
+    function home() {
+        loadContent("../components/home.php");
     }
-
     function appointments() {
         loadContent("myAppointments.php");
     }
