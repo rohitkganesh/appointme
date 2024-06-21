@@ -26,11 +26,11 @@ include ('../backend/conn.php');
 
 <body>
     <?php
-    include('otp-works.php');
+    include ('otp-works.php');
     if (isset($_POST['send-otp'])) {
         $email = $_POST['email'];
         $mobile = $_POST['mobile'];
-
+        
         $stmt = $conn->prepare('SELECT pid,pname FROM patient WHERE pemail = ? AND pmobile = ?');
         $stmt->bind_param('ss', $email, $mobile);
         $stmt->execute();
@@ -38,8 +38,15 @@ include ('../backend/conn.php');
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $pid = $row['pid'];
-            $forgot_error = sendmail($email,$row['pname']);
-            header('Refresh:2, url=otp-verify.php?id='.$pid);
+            $otpSent = sendmail($email, $row['pname']);
+            if($otpSent == true){
+                $_SESSION['otp']=$pid;
+                $forgot_error = '<span style="color:green;margin-left: -35px;">OTP sent succesfully to ' . $email . '.</span>';
+                header('Refresh:2, url=otp-verify.php');
+            }
+            else {
+                $forgot_error = "OTP sending failed.";
+            }
         } else {
             $forgot_error = "User/Patient doesn't exists.";
         }
@@ -65,10 +72,15 @@ include ('../backend/conn.php');
                     </div>
                     <input id="login-btn" type="submit" name="send-otp" value="SEND OTP">
                     <p class="or">OR</p>
-                    <p class="signup-link login-link">Don't have an account? <a href="signup.php">Sign Up</a></p>
-                    <p class="signup-link login-link"><a href="login.php">Log In</a></p>
+                    <p class="signup-link login-link">Don't have an account? <a href="../signup.php">Sign Up</a></p>
+                    <p class="signup-link login-link"><a href="../login.php">Log In</a></p>
 
                 </form>
+            </div>
+            <div class="intro">
+                <img src="../images/logo.png" width="400" alt="my-logo">
+                <p class="headings">Welcome to our online appointment booking site.</p>
+                <p class="headings">Here you can book your appointment with your preferred doctor just in few clicks.</p>
             </div>
         </div>
     <?php require_once ("../components/footer.php") ?>

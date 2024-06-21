@@ -14,12 +14,12 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <!-- <script src="https://kit.fontawesome.com/28cf9218f4.js" crossorigin="anonymous"></script> -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
 </head>
-<style>
-    * {
-        font-family: 'Poppins', sans-serif;
-    }
-</style>
 
 <body>
     <?php
@@ -50,7 +50,7 @@ session_start();
 
             // Check password based on user type
             if (password_verify($password, $hashedPass)) {
-                $_SESSION['id']=$row['id'];
+                $_SESSION['id'] = $row['id'];
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['name'] = $row['name'];
                 $_SESSION['usertype'] = $row['usertype'];
@@ -92,7 +92,7 @@ session_start();
                     <input id="login-btn" type="submit" name="login" value="LOG IN">
                     <p class="or">OR</p>
                     <p class="signup-link login-link">Don't have an account? <a href="signup.php">Sign Up</a></p>
-                    <p class="signup-link login-link"><a href="forgot-password.php">Forgot Password</a></p>
+                    <p class="signup-link login-link"><a href="passwordReset/forgot-password.php">Forgot Password</a></p>
                 </form>
             </div>
             <div class="intro">

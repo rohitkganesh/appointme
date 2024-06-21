@@ -6,6 +6,8 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    background-clip: cover;
+    margin-left: 16%;
 }
 .avatar-container button {
     position: absolute;

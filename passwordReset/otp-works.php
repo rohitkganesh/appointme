@@ -1,7 +1,7 @@
 <?php
 function sendmail($user, $fname)
 {
-    include ('backend/conn.php');
+    include ('../backend/conn.php');
     $to = $user;
     $otp = random_int(100000, 999999);
     $subject = 'Appoint Me - OTP - Password Reset';
@@ -18,9 +18,9 @@ function sendmail($user, $fname)
     $stmt->bind_param('iss', $otp, $expiry, $to);
     if ($stmt->execute()) {
         if (mail($to, $subject, $message, $headers)) {
-            return ('<span style="color:green;margin-left: -35px;">OTP sent succesfully to ' . $to . '.</span>');
+            return true;
         } else {
-            return ('OTP sending failed.');
+            return false;
         }
     }
 }
@@ -28,12 +28,11 @@ function sendmail($user, $fname)
 function otpverify($otp, $pid)
 {
     include ('../backend/conn.php');
-    $stmt = $conn->prepare('SELECT pemail,otp FROM patient WHERE otp = ? AND expiry > NOW()');
+    $stmt = $conn->prepare('SELECT pemail,otp FROM patient WHERE otp = ? AND otp_expiry > NOW()');
     $stmt->bind_param('i', $otp);
     $stmt->execute();
     $rs = $stmt->get_result();
     if ($rs->num_rows > 0) {
-        header('Location:reset-password.php?id='.$pid);
+        return true;
     }
-
 }
