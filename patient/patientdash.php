@@ -12,9 +12,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
         unset($_SESSION['msg']); // Clear the message after displaying it
     }
     if (!isset($_SESSION['login_message_shown'])) {
-        $message = "Login successful. Welcome  $role , $name  ( $email )";
-        echo "<script>alert('$message');</script>";
-        // Set session variable to indicate message has been shown
         $_SESSION['login_message_shown'] = true;
     }
     if (isset($_COOKIE['newStatus'])) {
@@ -65,9 +62,9 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
                         $avatar = $row['Avatar'];
                         echo "<div class='user-avatar'>";
                         if ($avatar) {
-                            echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar">';
+                            echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar" width="100" height="100">';
                         } else {
-                            echo '<img src="../images/default-avatar.png" alt="Avatar" ';
+                            echo '<img src="../images/default-avatar.png" alt="Avatar" width="100" height="100"';
                         }
                         echo "</div>";
                         echo '<br><button onclick="addAvatar()">Edit</button>';
@@ -87,19 +84,22 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
         </div>
         <div class="right-body home">
             <div class="nav-con">
-                <div>
-                    <h3 class="nav-con h3">APPOINT ME</h3>
+                <div class="header">
+                    <div class="logo">
+                        <a href="#">
+                            <img id="img-logo" src="../images/logo.png" alt="logo of this app" height="65">
+                        </a>
+                    </div>
+                    <div>
+                        <h3 class="nav-con h3" id="date">date</h3>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="nav-con h3" id="date">date</h3>
+
+                <div id="res">
+                    <?php
+                    include ("../components/home.php");
+                    ?>
                 </div>
-            </div>
-
-            <div id="res">
-                <?php
-                include ("../components/home.php");
-                ?>
-
             </div>
         </div>
 
