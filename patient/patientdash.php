@@ -2,6 +2,7 @@
 session_start();
 include ("../backend/conn.php");
 if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'patient') {
+    $pid=$_SESSION['id'];
     $email = $_SESSION['email'];
     $name = $_SESSION['name'];
     $role = $_SESSION['usertype'];
@@ -33,6 +34,7 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'patient') {
     <link rel="stylesheet" href="../Styles/dashboard.css">
     <link rel="stylesheet" href="../Styles/style-prev.css">
     <link rel="stylesheet" href="../Styles/footer-style.css">
+
     <!-- <link rel="stylesheet" href="../Styles/avatar.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <!-- <script src="https://kit.fontawesome.com/28cf9218f4.js" crossorigin="anonymous"></script> -->
@@ -76,9 +78,8 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'patient') {
             </div>
             <div>
                 <p><a href="#" onclick="home()">Home</a></p>
-                <p><a href="#" onclick="reports()">Reports</a></p>
                 <p><a href="#" onclick="appointments()">Appointments</a></p>
-                <p><a href="#">Settings</a></p>
+                <p><a href="#" onclick="settings()">Settings</a></p>
             </div>
 
         </div>
@@ -98,7 +99,7 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'patient') {
 
             <div id="res">
                 <?php
-                include ("../components/home.php");
+                include ("home.php");
                 ?>
             </div>
             <?php
@@ -118,14 +119,14 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'patient') {
                     document.getElementById("res").innerHTML = this.responseText;
                 }
             };
-            xhttp.open("GET", url);
+            xhttp.open("GET", url,true);
             xhttp.send();
         }
         function reports() {
             loadContent("../medical_reports/medical.php");
         }
         function home() {
-            loadContent("../components/home.php");
+            loadContent("../patient/home.php");
         }
         function appointments() {
             loadContent("myAppointments.php");
@@ -133,12 +134,21 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'patient') {
         function addAvatar() {
             loadContent("../components/avatar-upload.php")
         }
+        function settings() {
+            loadContent("../patient/settings.php")
+        }
         function viewImage(mid) {
             console.log("View Image clicked for MID:", mid);
             window.open('../medical_reports/view.php?mid=' + mid, 'Image', 'width=600,height=400');
         }
         function medicalUpload() {
             window.open('../medical_reports/medical_upload.php', '_blank', 'width=800,height=1000');
+        }
+        function UpdateProfile() {
+            window.open('../patient/editPatient.php', '_blank', 'width=800,height=1000');
+        }
+        function ChangePassword() {
+            window.open('../patient/changePatientpassword.php', '_blank', 'width=800,height=1000');
         }
 
 

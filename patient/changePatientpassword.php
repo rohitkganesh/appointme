@@ -1,13 +1,13 @@
 <?php
 session_start();
-if (!isset($_SESSION['usertype']) || $_SESSION['usertype'] !== 'doctor') {
+if (!isset($_SESSION['usertype']) || $_SESSION['usertype'] !== 'patient') {
     header("Location: ../login.php");
     exit();
 }
 
 include('../backend/conn.php');
 
-$did = $_SESSION['id'];
+$pid = $_SESSION['id'];
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -41,13 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if the current password is correct
     if (empty($errors)) {
-        $stmt = $conn->prepare("SELECT dpassword FROM doctor WHERE did = ?");
-        $stmt->bind_param('i', $did);
+        $stmt = $conn->prepare("SELECT ppassword FROM patient WHERE pid = ?");
+        $stmt->bind_param('i', $pid);
         $stmt->execute();
         $result = $stmt->get_result();
         $doctor = $result->fetch_assoc();
 
-        if (!password_verify($current_password, $doctor['dpassword'])) {
+        if (!password_verify($current_password, $doctor['ppassword'])) {
             $errors['current_password'] = 'Current password is incorrect.';
         }
     }
@@ -55,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // If there are no errors, update the password
     if (empty($errors)) {
         $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-        $stmt = $conn->prepare("UPDATE doctor SET dpassword = ? WHERE did = ?");
-        $stmt->bind_param('si', $hashed_password, $did);
+        $stmt = $conn->prepare("UPDATE patient SET ppassword = ? WHERE pid = ?");
+        $stmt->bind_param('si', $hashed_password, $pid);
 
         if ($stmt->execute()) {
             echo "<script>
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="signup-container">
         <div class="signup-input-field">
             <h3>Change Password</h3>
-            <form action="changeDocPassword.php" method="post">
+            <form action="../patient/changePatientpassword.php" method="post">
                 <table>
                     <tr>
                         <td class="input-labels"><i class="fa-solid fa-lock"></i></td>
@@ -141,5 +141,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
+   
 </body>
 </html>

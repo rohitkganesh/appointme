@@ -22,6 +22,7 @@ if (isset($_SESSION['id'])) {
     }
 </style>
 <link rel="stylesheet" href="../Styles/login-style.css">
+<link rel="stylesheet" href="../Styles/style-prev.css">
 <div class="login-container">
     <div class="input-field">
         <h2>Update Your Availability</h2>
@@ -35,7 +36,7 @@ if (isset($_SESSION['id'])) {
                 <input type="time" class="login-input" name="availability_end" value="<?php echo htmlspecialchars($currentAvailability['availability_end']); ?>" required>
             </div>
             <div>
-                <button class="logout-btn" type="button" onclick="prev()">Go back</button>
+                <button class="logout-btn" type="button" onclick="window.close()">Go back</button>
                 <button type="submit" class="logout-btn">Update</button>
             </div>
         </form>

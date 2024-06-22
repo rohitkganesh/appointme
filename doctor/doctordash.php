@@ -3,6 +3,7 @@ session_start();
 include ("../backend/conn.php");
 if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'doctor') {
     $email = $_SESSION['email'];
+    $did=$_SESSION['id'];
     $name = $_SESSION['name'];
     $role = $_SESSION['usertype'];
     if (isset($_SESSION['msg'])) {
@@ -122,7 +123,7 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'doctor') {
             loadContent("settings.php");
         }
         function UpdateAvailability() {
-            loadContent("Availability.php")
+            window.open('../doctor/Availability.php', '_blank', 'width=800,height=1000');
         }
         function UpdateProfile() {
             window.open('../doctor/editDoc.php', '_blank', 'width=800,height=1000');
@@ -130,9 +131,7 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'doctor') {
         function ChangePassword() {
             window.open('../doctor/changeDocPassword.php', '_blank', 'width=800,height=1000');
         }
-        function prev() {
-            settings();
-        }
+        
 
     </script>
 </body>
