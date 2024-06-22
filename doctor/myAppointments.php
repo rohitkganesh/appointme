@@ -1,8 +1,7 @@
 <?php
 include("../backend/conn.php");
-session_start();
-if(isset($_SESSION['id'])){
-    $id=$_SESSION['id'];
+if(isset($_GET['did'])){
+    $did=$_GET['did'];
 }
 ?>
 <!DOCTYPE html>
@@ -33,7 +32,7 @@ if(isset($_SESSION['id'])){
             ORDER BY a.AppointmentDate ASC, a.AppointmentTime ASC
 
         ");
-        $stmt->bind_param('i', $id);
+        $stmt->bind_param('i', $did);
         $stmt->execute();
         $result = $stmt->get_result();
 

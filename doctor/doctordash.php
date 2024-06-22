@@ -2,6 +2,7 @@
 session_start();
 include("../backend/conn.php");
 if(isset($_SESSION['email']) && isset($_SESSION['name'])){
+    $did= $_SESSION['id'];
     $email = $_SESSION['email'];
     $name = $_SESSION['name'];
     $role=$_SESSION['usertype'];
@@ -64,8 +65,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
         </div>
         <div>
             <p><a href="#" onclick="home()">Home</a></p>
-            <p><a href="#" onclick="appointments()">Appointments</a></p>
-            <p><a href="#">Settings</a></p>
+            <p><a href="#" onclick="settings()">Settings</a></p>
         </div>
     </div>
     <div class="right-body home">
@@ -79,7 +79,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
             </div>
         <div id="res">
             <?php
-            include("../components/home.php");
+            include("myAppointments.php");
             ?>
         </div>
     </div>
@@ -105,14 +105,27 @@ if(isset($_SESSION['email']) && isset($_SESSION['name'])){
     }
 
     function home() {
-        loadContent("../components/home.php");
-    }
-    function appointments() {
-        loadContent("myAppointments.php");
+        loadContent("../doctor/myAppointments.php?did=<?php echo $did ?>");
     }
     function addAvatar(){
-        loadContent("../components/avatar-upload.php")
+        loadContent("../components/avatar-upload.php");
     }
+    function settings(){
+        loadContent("settings.php");
+    }
+    function UpdateAvailability(){
+        loadContent("Availability.php")
+    }
+    function UpdateProfile(){
+        window.open('../doctor/editDoc.php', '_blank', 'width=800,height=1000');
+    }
+    function ChangePassword(){
+        window.open('../doctor/changeDocPassword.php', '_blank', 'width=800,height=1000');
+    }
+    function prev() {
+    settings();
+}
+
   </script>
 </body>
 </html>

@@ -66,24 +66,6 @@ include ('backend/create.php');
                         </tr>
                         <tr>
                             <td class="input-labels">
-                                <!-- <p>Mobile No. : </p> -->
-                                <i class="fa-solid fa-phone"></i>
-                            </td>
-                            <td class="signup-input-box">
-                                <input class="signup-input" type="number" name="mobile" placeholder="Mobile Number" value="<?php if (isset($mobile))
-                                echo $mobile ?>">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="error-box" colspan="2">
-                                <span class="error">
-                                <?php if (isset($mobile_error))
-                                echo $mobile_error ?>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="input-labels">
                                 <!-- <p>age : </p> -->
                                 <i class="fa-regular fa-calendar-days"></i>
                             </td>

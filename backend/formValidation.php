@@ -25,15 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    //mobile validation
-    if (empty($_POST['mobile'])) {
-        $mobile_error = 'Mobile number is required.';
-    } else {
-        $mobile = validate($_POST['mobile']);
-        if (!preg_match("/^(98|97)\d{8}$/", $mobile)) {
-            $mobile_error = 'Invalid mobile number.';
-        }
-    }
 
     //age validation
 

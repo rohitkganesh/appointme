@@ -5,7 +5,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
     $email = $_SESSION['email'];
     $name = $_SESSION['name'];
     $role = $_SESSION['usertype'];
-    // Check if the 'newStatus' cookie is set
 
     if (isset($_SESSION['msg'])) {
         echo "<script>alert('{$_SESSION['msg']}');</script>";
@@ -67,7 +66,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
                         if ($avatar) {
                             echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar">';
                         } else {
-                            echo '<img src="../images/default-avatar.png" alt="Avatar" ';
+                            echo '<img src="../images/default-avatar.png" alt="Avatar" >';
                         }
                         echo "</div>";
                         echo '<br><button onclick="addAvatar()">Edit</button>';
