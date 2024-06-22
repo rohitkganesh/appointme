@@ -12,12 +12,13 @@ if (isset($_SESSION['id'])) {
         
         if ($stmt->execute()) {
             echo "<script>alert('Availability updated successfully');
-             window.location.href = '../doctor/doctordash.php';
+             window.close();
             </script>";
             
             exit();
         } else {
-            echo "<script>alert('Failed to update availability');</script>";
+            echo "<script>alert('Failed to update availability');
+            window.close()</script>";
         }
     }
 }else{

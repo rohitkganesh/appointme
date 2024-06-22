@@ -63,9 +63,8 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'admin') {
             </div>
             <div>
                 <p><a href="#" onclick="home()">Home</a></p>
-                <p><a href="#" onclick="reports()">Reports</a></p>
                 <p><a href="#" onclick="appointments()">Appointments</a></p>
-                <p><a href="#">Settings</a></p>
+                <p><a href="#" onclick="settings()">Settings</a></p>
             </div>
         </div>
         <div class="right-body home">
@@ -110,11 +109,14 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'admin') {
             xhttp.send();
         }
 
-        function reports() {
-            loadContent("reports.php");
-        }
         function home() {
             loadContent("doctors.php")
+        }
+        function settings() {
+            loadContent("settings.php")
+        }
+        function ChangePassword(){
+            window.open('../admin/changepassword.php', '_blank', 'width=800,height=1000');
         }
 
         function appointments() {

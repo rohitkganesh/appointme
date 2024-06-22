@@ -174,8 +174,3 @@ include ('../backend/create.php');
 </body>
 
 </html>
-<script>
-    function prev() {
-        window.location.href = '../Admin/admindash.php';
-    }
-</script>

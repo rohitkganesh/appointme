@@ -48,7 +48,9 @@ color: white;
                     echo "<table>";
                     echo "<tr><th>Id</th><th>Name</th><th>Email</th><th>Availability</th><th>Specialties</th><th>Action</th></tr>";
                     while ($row = $result->fetch_assoc()) {
-                        $availability= $row['Availability_start']."-".$row['Availability_End'];
+                        $start =new DateTime($row['Availability_start']);
+                        $end =new DateTime($row['Availability_End']);
+                        $availability= $start->format('H:i') . '-' . $end->format('H:i');
                         echo "<tr>
                         <td>{$row['did']}</td>
                         <td>{$row['dname']}</td>
@@ -56,7 +58,7 @@ color: white;
                         <td>$availability</td>
                         <td>{$row['specialties']}</td>
                         <td>
-                            <a href='updateDoc.php?id={$row['did']}' class='logout-btn'>Update</a>
+                            <a href='updateDoc.php?id={$row['did']}' target='_blank' class='logout-btn'>Update</a>
                             <a href='deleteDoctor.php?id={$row['did']}' class='logout-btn delete' onclick='return confirm(\"Are you sure you want to delete this doctor?\")'>Delete</a>
                         </td>
                         </tr>";

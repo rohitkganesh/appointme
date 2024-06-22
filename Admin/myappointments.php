@@ -49,7 +49,7 @@ $result = $stmt->get_result();
                 echo "<div>Description: {$row['ReasonForVisit']}</div>";
                 echo "<div>Status: {$row['Status']}</div>";
 
-                if ($row['Status'] === 'Cancelled' || $row['Status'] === 'Expired') {
+                if ($row['Status'] === 'Cancelled' || $row['Status'] === 'Expired'||$row['Status'] === 'Rejected') {
                     echo "<button class='logout-btn'><a href='../admin/DeleteAppointment.php?aid={$row['AppointmentID']}' onclick='return confirm(\"Are you sure you want to delete this appointment?\")'>Delete</a></button>";
                 }
                 echo "</div>";
