@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
     <style>
         .container {
             display: flex;
             justify-content: center;
-            align-items: center; /* Corrected here */
+            align-items: center;
+            /* Corrected here */
             height: 100vh;
         }
+
         .intro {
             display: flex;
             flex-direction: column;
@@ -21,7 +18,8 @@
             left: 40%;
             height: 200px;
             position: fixed;
-            z-index: 10; /* Changed here */
+            z-index: 10;
+            /* Changed here */
             border-radius: 15px;
             padding: 10px;
             padding-bottom: 20px;
@@ -34,12 +32,14 @@
             50% {
                 box-shadow: 0 0 4px rgb(17, 17, 17), 1px 1px 10px blue, -1px -1px 10px red;
             }
+
             100% {
                 box-shadow: 0 0 4px rgb(17, 17, 17), 1px 1px 10px red, -1px -1px 10px blue;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="intro">
@@ -49,4 +49,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include ("../backend/conn.php");
-if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
+if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'admin') {
     $email = $_SESSION['email'];
     $name = $_SESSION['name'];
     $role = $_SESSION['usertype'];
@@ -10,9 +10,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
 
     // Check if the login message has been shown
     if (!isset($_SESSION['login_message_shown'])) {
-        $message = "Login successful. Welcome  $role , $name  ( $email )";
-        echo "<script>alert('$message');</script>";
-        // Set session variable to indicate message has been shown
         $_SESSION['login_message_shown'] = true;
     }
 } else {

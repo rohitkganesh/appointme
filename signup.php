@@ -1,4 +1,14 @@
 <?php
+session_start();
+if (isset($_SESSION['usertype'])  && $_SESSION['usertype'] === 'patient') {
+    header("Location:patient/patientdash.php");                  
+}
+elseif (isset($_SESSION['usertype'])  && $_SESSION['usertype'] === 'dcotor'){
+    header("Location:doctor/doctordash.php");                    
+}
+elseif (isset($_SESSION['usertype'])  && $_SESSION['usertype'] === 'admin'){
+    header("Location:admin/admindash.php");                  
+}
 include ('backend/formValidation.php');
 include ('backend/create.php');
 ?>

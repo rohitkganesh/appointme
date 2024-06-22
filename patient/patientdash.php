@@ -1,7 +1,7 @@
 <?php
 session_start();
 include ("../backend/conn.php");
-if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
+if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'patient') {
     $email = $_SESSION['email'];
     $name = $_SESSION['name'];
     $role = $_SESSION['usertype'];
@@ -33,7 +33,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
     <title>Document</title>
     <link rel="stylesheet" href="../Styles/dashboard.css">
     <link rel="stylesheet" href="../Styles/style-prev.css">
-    <link rel="stylesheet" href="../Styles/avatar.css">
+    <link rel="stylesheet" href="../Styles/footer-style.css">
+    <!-- <link rel="stylesheet" href="../Styles/avatar.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <!-- <script src="https://kit.fontawesome.com/28cf9218f4.js" crossorigin="anonymous"></script> -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -64,10 +65,10 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
                         if ($avatar) {
                             echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar" width="100" height="100">';
                         } else {
-                            echo '<img src="../images/default-avatar.png" alt="Avatar" width="100" height="100"';
+                            echo '<img src="../images/default-avatar.png" alt="Avatar" width="100" height="100">';
                         }
                         echo "</div>";
-                        echo '<br><button onclick="addAvatar()">Edit</button>';
+                        echo '<button onclick="addAvatar()">Edit</button>';
                         echo "<p class='username'>{$name}</p>";
                     }
                     ?>
@@ -76,7 +77,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
             </div>
             <div>
                 <p><a href="#" onclick="home()">Home</a></p>
-                <p><a href="#" onclick="reports()">Reports</p>
+                <p><a href="#" onclick="reports()">Reports</a></p>
                 <p><a href="#" onclick="appointments()">Appointments</a></p>
                 <p><a href="#">Settings</a></p>
             </div>
@@ -94,13 +95,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
                         <h3 class="nav-con h3" id="date">date</h3>
                     </div>
                 </div>
-
-                <div id="res">
-                    <?php
-                    include ("../components/home.php");
-                    ?>
-                </div>
             </div>
+
+            <div id="res">
+                <?php
+                include ("../components/home.php");
+                ?>
+            </div>
+            <?php
+            include ('../components/footer.php'); ?>
         </div>
 
 

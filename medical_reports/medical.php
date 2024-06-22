@@ -20,23 +20,7 @@ session_start();
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-
-        th {
-            background-color: #f8f8f8;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .delete {
-            background-color: red;
-            color: white;
-        }
-
-        .delete:hover {
-            background-color: #8B0000;
-        }
+        
     </style>
 </head>
 <body>
