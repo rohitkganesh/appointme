@@ -6,7 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         empty($age_error) &&
         empty($name_error) &&
         empty($email_error) &&
-        empty($mobile_error) &&
         empty($password_error) &&
         empty($password1_error) &&
         empty($gender_error)
@@ -29,12 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $hash = password_hash($password, PASSWORD_DEFAULT);
             if (!empty($specialties)) { // If specialties is provided, it's a doctor
                 $role = 'doctor';
-                $stmt = $conn->prepare('INSERT INTO doctor(dname, demail, dmobile, dpassword, ddob, dgender, specialties) VALUES(?, ?, ?, ?, ?, ?, ?)');
-                $stmt->bind_param('sssssss', $name, $email, $mobile, $hash, $age, $gender, $specialties);
+                $stmt = $conn->prepare('INSERT INTO doctor(dname, demail, dpassword, ddob, dgender, specialties) VALUES(?, ?, ?, ?, ?, ?)');
+                $stmt->bind_param('ssssss', $name, $email, $hash, $age, $gender, $specialties);
             } else { // Else, it's a patient
                 $role = 'patient';
-                $stmt = $conn->prepare('INSERT INTO patient(pname, pemail, pmobile, ppassword, pdob, pgender) VALUES(?, ?, ?, ?, ?, ?)');
-                $stmt->bind_param('ssssss', $name, $email, $mobile, $hash, $age, $gender);
+                $stmt = $conn->prepare('INSERT INTO patient(pname, pemail, ppassword, pdob, pgender) VALUES(?, ?, ?, ?, ?)');
+                $stmt->bind_param('sssss', $name, $email, $hash, $age, $gender);
             }
 
             if ($stmt->execute()) {

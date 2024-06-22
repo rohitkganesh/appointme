@@ -37,39 +37,38 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'doctor') {
 </head>
 
 <body>
-    <section class="section-body">
-        <div class="left-body">
-            <div class="patient">
-                <div class="avatar-container">
-                    <?php
-                    $stmt = $conn->prepare("SELECT * FROM doctor WHERE demail = ?");
-                    $stmt->bind_param('s', $email);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
-                    if ($result->num_rows > 0) {
-                        $row = $result->fetch_assoc();
-                        $name = $row['dname'];
-                        $avatar = $row['Avatar'];
-                        if ($avatar) {
-                            echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar">';
-                        } else {
-                            echo '<img src="../images/default-avatar.png" alt="Avatar" ';
-                        }
-                        echo '<br><button onclick="addAvatar()">Edit</button>';
-                        echo "<p>{$name}</p>";
-                    }
-                    ?>
-                </div>
-                <button class="logout-btn"><a href="../logout.php">Log out</a></button>
-            </div>
-            <div>
-                <p><a href="#" onclick="home()">Home</a></p>
-                <p><a href="#" onclick="appointments()">Appointments</a></p>
-                <p><a href="#">Settings</a></p>
-            </div>
+  <section class="section-body">
+    <div class="left-body">
+        <div class="patient">
+        <div class="avatar-container">
+            <?php
+            $stmt = $conn->prepare("SELECT * FROM doctor WHERE demail = ?");
+            $stmt->bind_param('s', $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $name = $row['dname'];
+                $avatar = $row['Avatar'];
+                if ($avatar) {
+                    echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar">';
+                } else {
+                    echo '<img src="../images/default-avatar.png" alt="Avatar" >';
+                }
+                echo '<button onclick="addAvatar()">Edit</button>';
+                echo "<p>{$name}</p>";
+            }
+            ?>
         </div>
-        <div class="right-body home">
-            <div class="nav-con">
+            <button class="logout-btn"><a href="../logout.php">Log out</a></button>
+        </div>
+        <div>
+            <p><a href="#" onclick="home()">Home</a></p>
+            <p><a href="#" onclick="settings()">Settings</a></p>
+        </div>
+    </div>
+    <div class="right-body home">
+    <div class="nav-con">
                 <div>
                     <h3 class="nav-con h3">APPOINT ME</h3>
                 </div>
@@ -77,15 +76,15 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'doctor') {
                     <h3 class="nav-con h3" id="date">date</h3>
                 </div>
             </div>
-            <div id="res">
-                <?php
-                include ("../components/home.php");
-                ?>
-            </div>
+        <div id="res">
+            <?php
+            include("myAppointments.php");
+            ?>
         </div>
-    </section>
-    <script>
-
+    </div>
+  </section>
+  <script>
+ 
 
         document.addEventListener("DOMContentLoaded", function () {
             var date = new Date();
@@ -104,16 +103,29 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'doctor') {
             xhttp.send();
         }
 
-        function home() {
-            loadContent("../components/home.php");
-        }
-        function appointments() {
-            loadContent("myAppointments.php");
-        }
-        function addAvatar() {
-            loadContent("../components/avatar-upload.php")
-        }
-    </script>
+    function home() {
+        loadContent("../doctor/myAppointments.php?did=<?php echo $did ?>");
+    }
+    function addAvatar(){
+        loadContent("../components/avatar-upload.php");
+    }
+    function settings(){
+        loadContent("settings.php");
+    }
+    function UpdateAvailability(){
+        loadContent("Availability.php")
+    }
+    function UpdateProfile(){
+        window.open('../doctor/editDoc.php', '_blank', 'width=800,height=1000');
+    }
+    function ChangePassword(){
+        window.open('../doctor/changeDocPassword.php', '_blank', 'width=800,height=1000');
+    }
+    function prev() {
+    settings();
+}
+
+  </script>
 </body>
 
 </html>

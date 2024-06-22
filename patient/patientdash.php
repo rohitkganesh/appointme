@@ -5,7 +5,6 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'patient') {
     $email = $_SESSION['email'];
     $name = $_SESSION['name'];
     $role = $_SESSION['usertype'];
-    // Check if the 'newStatus' cookie is set
 
     if (isset($_SESSION['msg'])) {
         echo "<script>alert('{$_SESSION['msg']}');</script>";
