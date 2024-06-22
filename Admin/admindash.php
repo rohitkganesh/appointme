@@ -26,7 +26,8 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'admin') {
     <title>Dashboard</title>
     <link rel="stylesheet" href="../Styles/dashboard.css">
     <link rel="stylesheet" href="../Styles/style-prev.css">
-    <link rel="stylesheet" href="../Styles/avatar.css">
+    <link rel="stylesheet" href="../Styles/footer-style.css">
+    <!-- <link rel="stylesheet" href="../Styles/avatar.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
@@ -44,12 +45,14 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'admin') {
                         $row = $result->fetch_assoc();
                         $name = $row['name'];
                         $avatar = $row['Avatar'];
+                        echo "<div class='user-avatar'>";
                         if ($avatar) {
-                            echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar">';
+                            echo '<img src="data:image/jpeg;base64,' . base64_encode($avatar) . '" alt="Avatar" width="100" height="100">';
                         } else {
-                            echo '<img src="../images/default-avatar.png" alt="Avatar" ';
+                            echo '<img src="../images/default-avatar.png" alt="Avatar" width="100" height="100">';
                         }
-                        echo '<br><button onclick="addAvatar()">Edit</button>';
+                        echo "</div>";
+                        echo '<button onclick="addAvatar()">Edit</button>';
                         echo "<p>{$name}</p>";
                     }
                     ?>
@@ -67,13 +70,15 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'admin') {
         </div>
         <div class="right-body home">
             <div class="nav-con">
-                <div class="logo">
-                    <a href="index.php">
-                        <img id="img-logo" src="images/logo.png" alt="logo of this app" height="65">
-                    </a>
-                </div>
-                <div>
-                    <h3 class="nav-con h3" id="date" style="color:white">date</h3>
+                <div class="header">
+                    <div class="logo">
+                        <a href="#">
+                            <img id="img-logo" src="../images/logo.png" alt="logo of this app" height="65">
+                        </a>
+                    </div>
+                    <div>
+                        <h3 class="nav-con h3" id="date">date</h3>
+                    </div>
                 </div>
             </div>
             <div id="res">
@@ -81,7 +86,11 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'admin') {
                 include ("doctors.php");
                 ?>
             </div>
+            <?php
+            include ('../components/footer.php'); ?>
         </div>
+
+
     </section>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
