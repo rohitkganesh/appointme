@@ -37,12 +37,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
             if ($stmt->execute()) {
-                $msg = '<span style="color:green">Account created Successfully.<br>Log In to continue . . .</span>';
-                header('Refresh:2, url=login.php') ;
-                // exit(); // Ensure the script stops after the redirect
+                $msg = 'Account created Successfully.';
+                if ($role == 'patient') {
+                    echo "<script>
+                            alert('$msg');
+                                window.location.href = 'login.php';
+                          </script>";
+                } else {
+                    echo "<script>
+                            alert('$msg');
+                                window.location.href = '../Admin/admindash.php';
+                          </script>";
+                }
+                exit(); // Ensure the script stops after the redirect
             } else {
-                $msg = 'User could not be created. ';
+                $msg = 'User could not be created.';
+                echo "<script>alert('$msg');</script>";
             }
+            
         }
         $stmt->close();
     }

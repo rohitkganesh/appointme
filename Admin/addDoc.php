@@ -164,7 +164,11 @@ include ('../backend/create.php');
                         </tr>
                     </table>
                     <!-- signup button -->
-                    <input id="signup-btn" type="submit" name="login" value="SUBMIT">
+                     <div>
+
+                         <input id="signup-btn" type="button" value="Go back" onclick="window.history.back()">
+                         <input id="signup-btn" type="submit" name="login" value="SUBMIT">
+                        </div>
                     <p class="error">
                     <?php if (isset($msg))
                                     echo $msg ?>
