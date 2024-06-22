@@ -79,6 +79,7 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'patient') {
             <div>
                 <p><a href="#" onclick="home()">Home</a></p>
                 <p><a href="#" onclick="appointments()">Appointments</a></p>
+                <p><a href="#" onclick="reports()">Reports</a></p>
                 <p><a href="#" onclick="settings()">Settings</a></p>
             </div>
 

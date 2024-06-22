@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("../backend/conn.php");
+include ("../backend/conn.php");
 
-if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
+if (isset($_SESSION['email']) && $_SESSION['usertype'] == 'patient') {
     $pid = $_SESSION['id'];
 
     if (isset($_GET['did']) && is_numeric($_GET['did'])) {
@@ -24,7 +24,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
             }
             $stmt1->close();
         } else {
-            echo "Failed to prepare the patient SQL statement.";
+            echo "Operation Failed.";
             exit();
         }
 
@@ -40,7 +40,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
             }
             $stmt2->close();
         } else {
-            echo "Failed to prepare the doctor SQL statement.";
+            echo "Operation Failed.";
             exit();
         }
     } else {
@@ -66,11 +66,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['book_appointment'])) {
     // Validate appointment date
     $currentDate = new DateTime();
     $selectedDate = new DateTime($appointment_date);
-    $tomorrow = (new DateTime())->setTime(0, 0, 0)->modify('+1 day');
-
-    if ($selectedDate->format('Y-m-d') !== $tomorrow->format('Y-m-d')) {
-        $errors['appointment_date'] = 'Please select an appointment date for tomorrow.';
+    
+    // Create a DateTime object for 2 days from now
+    $maxDate = (new DateTime())->modify('+2 days')->setTime(0, 0);
+    
+    // Check if the selected date is not within 2 days from now
+    if ($selectedDate < $currentDate || $selectedDate > $maxDate) {
+        $errors['appointment_date'] = 'Please select an appointment date within 2 days.';
     }
+    
 
     // Validate appointment time
     $availabilityStart = new DateTime($doctor['Availability_start']);
@@ -122,6 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['book_appointment'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -137,6 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['book_appointment'])) {
             height: 100vh;
             margin: 0;
         }
+
         .report-container {
             background-color: white;
             padding: 20px;
@@ -144,30 +150,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['book_appointment'])) {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
+
         h2 {
             margin-bottom: 20px;
             font-size: 24px;
             text-align: center;
         }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
         }
-        input, textarea {
+
+        input,
+        textarea {
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
         .error {
             color: red;
             font-size: 12px;
             margin-top: 5px;
         }
+
         .logout-btn {
             background-color: #007bff;
             color: white;
@@ -176,22 +189,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['book_appointment'])) {
             cursor: pointer;
             border-radius: 4px;
         }
+
         .logout-btn:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
     <div class="report-container">
         <h2>Book your appointment</h2>
         <form action="appointmentform.php?did=<?php echo htmlspecialchars($did); ?>" method="post">
             <div class="form-group">
                 <label for="patient_name">Patient Name:</label>
-                <input type="text" id="patient_name" name="patient_name" value="<?php echo htmlspecialchars($patient['pname']); ?>" required readonly>
+                <input type="text" id="patient_name" name="patient_name"
+                    value="<?php echo htmlspecialchars($patient['pname']); ?>" required readonly>
             </div>
             <div class="form-group">
                 <label for="doctor_name">Doctor Name:</label>
-                <input type="text" id="doctor_name" name="doctor_name" value="<?php echo htmlspecialchars($doctor['dname']); ?>" required readonly>
+                <input type="text" id="doctor_name" name="doctor_name"
+                    value="<?php echo htmlspecialchars($doctor['dname']); ?>" required readonly>
             </div>
             <div class="form-group">
                 <label for="appointment_date">Appointment Date:</label>
@@ -222,4 +239,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['book_appointment'])) {
         }
     </script>
 </body>
+
 </html>

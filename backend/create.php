@@ -38,10 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($stmt->execute()) {
                 $msg = '<span style="color:green">Account created Successfully.<br>Log In to continue . . .</span>';
-                ($role == 'patient') ? header('Refresh:2, url=login.php') : header('Refresh:2, url=../Admin/admindash.php');
-                exit(); // Ensure the script stops after the redirect
+                header('Refresh:2, url=login.php') ;
+                // exit(); // Ensure the script stops after the redirect
             } else {
-                $msg = 'User could not be created. ' . htmlspecialchars($stmt->error);
+                $msg = 'User could not be created. ';
             }
         }
         $stmt->close();
