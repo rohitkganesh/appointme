@@ -29,10 +29,9 @@ include ('../backend/conn.php');
     include ('otp-works.php');
     if (isset($_POST['send-otp'])) {
         $email = $_POST['email'];
-        $mobile = $_POST['mobile'];
         
-        $stmt = $conn->prepare('SELECT pid,pname FROM patient WHERE pemail = ? AND pmobile = ?');
-        $stmt->bind_param('ss', $email, $mobile);
+        $stmt = $conn->prepare('SELECT pid,pname FROM patient WHERE pemail = ?');
+        $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
@@ -61,11 +60,7 @@ include ('../backend/conn.php');
                     <input type="text" class="login-input" name="email" placeholder="Email Address" value="<?php if (isset($email))
                         echo $email ?>">
                     </div>
-                    <div class="login-input-container">
-                        <i class="fa-solid fa-phone"></i>
-                        <input type="text" class="login-input" name="mobile" placeholder="Mobile Number" value="<?php if (isset($mobile))
-                        echo $mobile ?>">
-                    </div>
+                  
                     <div class="error login-error">
                     <?php if (isset($forgot_error))
                         echo $forgot_error ?>
