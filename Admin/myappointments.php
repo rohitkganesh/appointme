@@ -11,7 +11,7 @@ $currentDateTime = date('Y-m-d H:i:s');
 
 // Prepare SQL to fetch all appointments
 $stmt = $conn->prepare("
-    SELECT a.*, d.dname,d.specialties, p.pname, p.pgender, p.pemail
+    SELECT a.*, d.dname, p.pname, p.pgender
     FROM appointments a
     JOIN doctor d ON a.did = d.did
     JOIN patient p ON a.pid = p.pid
@@ -41,10 +41,8 @@ $result = $stmt->get_result();
                 echo "<span>{$row['AppointmentDate']}</span>";
                 echo "<span>{$row['AppointmentTime']}</span>";
                 echo "</div>";
-                echo "<div>Doctor Name: {$row['dname']}</div>";
-                echo "<div>Specialties: {$row['specialties']}</div>";
                 echo "<div>Patient Name: {$row['pname']}</div>";
-                echo "<div>Email: {$row['pemail']}</div>";
+                echo "<div>Scheduled with: Dr.{$row['dname']}</div>";
                 echo "<div>Gender: {$row['pgender']}</div>";
                 echo "<div>Description: {$row['ReasonForVisit']}</div>";
                 echo "<div>Status: {$row['Status']}</div>";

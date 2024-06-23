@@ -48,7 +48,6 @@ $pid = $_SESSION['id'];
                 $updateStmt->close();
                 
                 // Update row data with new status
-                $row['Status'] = 'Expired'; // Update status in current row data
             }
             
             echo "<div class='appointment'>";
