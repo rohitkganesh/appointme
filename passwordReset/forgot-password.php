@@ -1,6 +1,15 @@
 <?php
 session_start();
 include ('../backend/conn.php');
+if (isset($_SESSION['usertype'])  && $_SESSION['usertype'] === 'patient') {
+    header("Location:../patient/patientdash.php");                  
+}
+elseif (isset($_SESSION['usertype'])  && $_SESSION['usertype'] === 'dcotor'){
+    header("Location:../doctor/doctordash.php");                    
+}
+elseif (isset($_SESSION['usertype'])  && $_SESSION['usertype'] === 'admin'){
+    header("Location:../admin/admindash.php");                  
+}
 ?>
 
 <!DOCTYPE html>
