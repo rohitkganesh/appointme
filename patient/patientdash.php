@@ -30,7 +30,7 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'patient') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Appoint Me || Patient</title>
     <link rel="stylesheet" href="../Styles/dashboard.css">
     <link rel="stylesheet" href="../Styles/style-prev.css">
     <link rel="stylesheet" href="../Styles/footer-style.css">

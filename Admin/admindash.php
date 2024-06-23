@@ -23,7 +23,7 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'admin') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Appoint Me || Admin</title>
     <link rel="stylesheet" href="../Styles/dashboard.css">
     <link rel="stylesheet" href="../Styles/style-prev.css">
     <link rel="stylesheet" href="../Styles/footer-style.css">
@@ -59,7 +59,7 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'admin') {
 
                 </div>
                 <button class="logout-btn"><a href="../logout.php">Log out</a></button>
-                <div></div>
+                
             </div>
             <div>
                 <p><a href="#" onclick="home()">Home</a></p>
@@ -86,10 +86,8 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'admin') {
                 ?>
             </div>
             <?php
-            include ('../components/footer.php'); ?>
+            require_once ('../components/footer.php'); ?>
         </div>
-
-
     </section>
     <script>
         document.addEventListener("DOMContentLoaded", function () {

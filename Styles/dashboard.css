@@ -76,6 +76,10 @@ a {
     padding: 10px 0;
 }
 
+.left-body button a {
+    padding: 0;
+}
+
 .left-body a:hover {
     color: #9adced;
 }

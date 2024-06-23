@@ -29,7 +29,7 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'doctor') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Dashboard</title>
+    <title>Appoint Me || Doctor</title>
     <link rel="stylesheet" href="../Styles/dashboard.css">
     <link rel="stylesheet" href="../Styles/style-prev.css">
     <link rel="stylesheet" href="../Styles/footer-style.css">
@@ -90,7 +90,7 @@ if (isset($_SESSION['usertype']) && $_SESSION['usertype'] === 'doctor') {
                 ?>
             </div>
             <?php
-            include ('../components/footer.php'); ?>
+            require_once ('../components/footer.php'); ?>
         </div>
     </section>
     <script>
