@@ -25,6 +25,7 @@ session_start();
 </head>
 <body>
     <h3>Medicals reports</h3>
+    <p>Keep your reports safe here.</p>
     <div class="doctors">
         <?php
             include("../backend/conn.php");

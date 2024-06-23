@@ -122,9 +122,10 @@ a {
     margin-top: 70px; /* Adjust for the fixed navbar height */
     padding: 20px;
     border-radius: 5px;
-    height: calc(100vh - 90px); /* Adjust for padding and navbar */
+    height: max-content;
+    /* height: calc(100vh - 90px); Adjust for padding and navbar */
     /* overflow-y: hidden; */
-    margin-bottom: 60px;
+    /* margin-bottom: 60px; */
 }
 
 /* User Avatar and Info */
